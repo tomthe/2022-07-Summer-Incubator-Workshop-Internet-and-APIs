@@ -4,3 +4,4 @@
 *.Rhistory
 *.tmp
 *lock.*
+.Rproj.user

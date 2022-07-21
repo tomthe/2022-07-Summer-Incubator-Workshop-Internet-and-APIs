@@ -1,13 +1,13 @@
 ---
 title: "Twitter API"
 author: "Tom Theile"
-date: "1 3 2022"
+date: "July 2022"
 output: html_document
 ---
 
 # Accessing the Twitter API
 
-This tutorial is vagually based on this official tutorial from Twitter: https://developer.twitter.com/en/docs/tutorials/getting-started-with-r-and-v2-of-the-twitter-api
+This tutorial is vaguely based on this official tutorial from Twitter: https://developer.twitter.com/en/docs/tutorials/getting-started-with-r-and-v2-of-the-twitter-api
 
 ### Getting access
 
@@ -252,14 +252,6 @@ print(fromJSON(obj))
 You can find much more information about building queries here: https://developer.twitter.com/en/docs/twitter-api/tweets/counts/integrate/build-a-query
 
 
-**Exercise 3.2:**
-How many tweets are there in the last seven days:
-
-* from the Ukraine, with images
-* from Germany with the keyword "fire"
-* with a link to demogr.mpg.de or your institutes website?
-* Are there more English or more German tweets with a place:"Berlin"? 
-
 
 #### Full archive search
 
@@ -298,6 +290,16 @@ ggplot(dfresponse, aes(x=start, y=tweet_count)) +
 
 ```
 
+**Exercise 3.2:**
+How many tweets are there in the last 30 days:
+
+* from the Ukraine, with images
+* from Germany with the keyword "fire"
+* with a link to demogr.mpg.de or your institutes website?
+* Are there more English or more German tweets with a place:"Berlin"? 
+
+(pick one task, use the official documentation)
+
 
 ## Retrieving Tweets
 
@@ -310,7 +312,7 @@ but a lot of other data which is not included by default.
 
 
 ```{R}
-query = URLencode('"demogr.mpg.de"') # or ...
+query = URLencode('machine learning vulnerability') # or ...
 fulltext = URLencode("tweet_mode='extended'")
 url_handle <- sprintf("https://api.twitter.com/2/tweets/search/recent?query=%s&tweet.fields=created_at&expansions=author_id,geo.place_id&user.fields=created_at",query)
 print(url_handle)
@@ -324,6 +326,8 @@ dfresponse
 #jresponse$data[1]$text
 
 ```
+
+
 **Exercise 3.3:** Play around with the query and search for more interesting tweets. Use the geo-tags, exclude a word by adding a minus sign: -demography
 
 ```{R}
