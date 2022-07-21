@@ -1,0 +1,74 @@
+---
+title: "Websurfing with R"
+date: "July 2022"
+author: "Tom Theile, Max-Planck-Institute for demographic research, theile@demogr.mpg.de"
+output:
+  pdf_document: default
+---   
+  
+```{r setup, include=FALSE, warning=FALSE}
+pagebreak <- function() {
+  if(knitr::is_latex_output())
+    return("\\newpage")
+  else
+    return('<div style="page-break-before: always;" />')
+}
+
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+```
+
+## Reading a website with R
+
+Requesting webpages can be done not only by using the webbrowser, but also by using any programming language. We will use R to do this. And we will use the R-package `rvest`, because it makes this very convenient.
+
+Please google rvest, and you will get the installation-instructions:
+  
+```R
+# The easiest way to get rvest is to install the whole tidyverse:
+install.packages("tidyverse")
+
+# Alternatively, install just rvest:
+install.packages("rvest")
+```
+
+Now you can download any webpage with the simple command `read_html`:
+  
+```{r}
+library(rvest)
+simple_page <- read_html("https://user.demogr.mpg.de/theile/Files/edsd/simple.html")
+print(paste(simple_page))
+```
+
+```
+<!DOCTYPE html>
+  <html>
+  <body>
+  
+  <h1>Hello Barcelona!</h1>
+  
+  <p>This is some text.</p>
+  
+  <a href="https://www.example.com">This is a link</a>
+  <a href="./simple2.html">This is also a link</a>
+  </body>
+  </html>
+```
+
+
+## What temperature is it right now?
+
+# use selectorGadget to find the css selector:
+
+```R
+css_selector <-".current-w-temp"
+
+page_weather <- read_html("https://kachelmannwetter.com/de/wetter/2844588-rostock")
+
+temperature <- page_weather %>%
+    html_nodes(css_selector) %>%   # This line selects all the html-elements with that css-selector
+    html_text()   # This extracts only the Text of the selected html-elements
+
+print(temperature)
+
+```
+

@@ -1,0 +1,75 @@
+---
+title: "Using a simple API"
+date: "July 2022"
+author: "Tom Theile, Max-Planck-Institute for demographic research, theile@demogr.mpg.de"
+output:
+  pdf_document: default
+---   
+  
+```{r setup, include=FALSE, warning=FALSE}
+pagebreak <- function() {
+  if(knitr::is_latex_output())
+    return("\\newpage")
+  else
+    return('<div style="page-break-before: always;" />')
+}
+
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+```
+
+## Open APIs
+
+Most APIs require an authentication by the user, but some don't. BrightSky is a
+weather API that does not require an authentication and it is easy to get started.
+
+https://brightsky.dev/
+
+https://brightsky.dev/demo/
+
+https://brightsky.dev/docs/
+
+
+## Retrieving the temperature in Rostock
+
+1. Install and load the necessary packages to do HTTP-request and read json:
+
+```R
+#install.packages("httr")
+#install.packages("jsonlite")
+
+library(httr)
+library(jsonlite)
+library(lubridate)
+```
+
+2. Retrieve the URL and the parameters from the documentation of the API:
+
+https://api.brightsky.dev/weather?lat=54.08&lon=12.1&date=2022-07-21
+
+3. Call the API and store the response in a variable
+4. Retrieve the desired information from the variable
+
+```R
+
+url1 = "https://api.brightsky.dev/weather?lat=54.08&lon=12.1&date=2022-07-21"
+res <- GET(url1)
+res
+rescontent <-content(res)
+
+rescontent$weather[[1]]$temperature
+
+``` 
+
+
+
+
+
+
+
+
+
+```R
+
+
+```
+
